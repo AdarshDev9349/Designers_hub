@@ -26,7 +26,7 @@ function Signup() {
     };
 
     return (
-        <div className='flex h-screen p-10 items-center'>
+        <div className='flex h-screen p-10 items-center bg-blue-900'>
         <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-lg bg-white dark:bg-gray-800 mt-10">
             <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200">
                 Create Your Account
