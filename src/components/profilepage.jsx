@@ -54,6 +54,7 @@ function ProfilePage() {
             setShowModal(false);
             setProjectName('');
             setFigmaUrl('');
+            console.log('Project added:', response.data);
         } catch (err) {
             console.error('Error adding project:', err);
             setError('Failed to add project');
