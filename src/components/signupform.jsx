@@ -39,7 +39,7 @@ function Signup() {
 
             <form className="my-8" onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label htmlFor="username" className="block text-sm font-medium text-white">
                         Username
                     </label>
                     <input
@@ -54,7 +54,7 @@ function Signup() {
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label htmlFor="password" className="block text-sm font-medium text-white">
                         Password
                     </label>
                     <input
@@ -69,7 +69,7 @@ function Signup() {
                 </div>
 
                 <div className="mb-4">
-                    <label htmlFor="passwordConfirm" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label htmlFor="passwordConfirm" className="block text-sm font-medium text-white">
                         Confirm Password
                     </label>
                     <input
