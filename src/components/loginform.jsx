@@ -30,11 +30,11 @@ function LoginForm({ setIsAuthenticated }) {
 
   return (
     <div className="flex items-center justify-center h-screen bg-blue-900 p-10">
-    <div className="max-w-md w-full  mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-lg bg-gray-800">
+    <div className="max-w-md w-full  mx-auto  rounded-2xl p-4 md:p-8 shadow-lg bg-gray-800">
       <h2 className="font-bold text-xl text-white">
         Welcome Back
       </h2>
-      <p className="text-gray-600 text-sm mt-2 ">
+      <p className="text-white text-sm mt-2 ">
         Please log in to your account
       </p>
 
