@@ -39,7 +39,7 @@ function ProfilePage() {
     const handleAddProject = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await axios.post('http://127.0.0.1:8000/api/add_project/', {
+            const response = await axios.post('https://fig-hub.onrender.com/api/add_project/', {
                 project_name: projectName,
                 figma_url: figmaUrl,
             }, {
@@ -128,7 +128,7 @@ function ProfilePage() {
                                         View in Figma
                                     </a>
                                     <a
-                                        href={project.image_url} // Assuming API already returns the `image_url`
+                                        href={project.image_url} 
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="bg-green-500 text-white py-1 px-3 rounded"
