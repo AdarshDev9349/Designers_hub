@@ -34,7 +34,7 @@ function LoginForm({ setIsAuthenticated }) {
       <h2 className="font-bold text-xl text-gray-800 dark:text-gray-200">
         Welcome Back
       </h2>
-      <p className="text-gray-600 text-sm mt-2 dark:text-gray-300">
+      <p className="text-gray-600 text-sm mt-2 ">
         Please log in to your account
       </p>
 
