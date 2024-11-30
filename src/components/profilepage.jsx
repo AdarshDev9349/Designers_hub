@@ -82,133 +82,138 @@ function ProfilePage() {
     visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
   };
 
-  if (error) return <p>{error}</p>;
-  if (!profile) return <p>Loading...</p>;
+  if (error) return <p className="text-red-500 text-center text-xl mt-10">{error}</p>;
+  if (!profile) return <p className="text-gray-500 text-center text-xl mt-10">Loading...</p>;
 
   return (
-    <div >
+    <div className="min-h-screen bg-gray-100">
       {/* Navbar */}
       <motion.nav
-        className="flex justify-between px-10 items-center bg-gray-800 text-white py-7  md:flex-row flex-col"
+        className="bg-gradient-to-r bg-blue-900 text-white py-4 px-6 shadow-lg"
         variants={navVariants}
         initial="hidden"
         animate="visible"
       >
-        <div className="flex justify-between items-center w-full md:w-auto">
-          <h1 className="text-3xl">{profile.username}</h1>
+        <div className="container mx-auto flex justify-between items-center">
+          <h1 className="text-3xl font-bold">{profile.username}</h1>
           <button
-            className="text-xl md:hidden"
+            className="text-2xl md:hidden focus:outline-none"
             onClick={() => setMenuOpen(!menuOpen)}
           >
-            ☰
+            {menuOpen ? '✕' : '☰'}
           </button>
+          <ul
+            className={`list-none py-5 cursor-pointer flex-col md:flex-row flex gap-6 text-lg items-center ${
+              menuOpen ? 'flex absolute top-16 left-0 right-0 bg-blue-800 p-4 md:relative md:bg-transparent md:p-0' : 'hidden'
+            } md:flex transition-all duration-300 ease-in-out`}
+          >
+            <motion.li whileHover={{ scale: 1.1 }} className="hover:text-blue-200 transition-colors">About</motion.li>
+            <motion.li whileHover={{ scale: 1.1 }} className="hover:text-blue-200 transition-colors">
+              <button onClick={() => setShowModal(true)}>Add Project</button>
+            </motion.li>
+            <motion.li whileHover={{ scale: 1.1 }} className="hover:text-blue-200 transition-colors">Search User</motion.li>
+            <motion.li whileHover={{ scale: 1.1 }} className="hover:text-blue-200 transition-colors">Log Out</motion.li>
+          </ul>
         </div>
-        <ul
-          className={`list-none cursor-pointer flex-col md:flex-row flex gap-6 text-lg items-center ${
-            menuOpen ? "flex" : "hidden"
-          } md:flex`}
-        >
-          <motion.li whileHover={{ scale: 1.1 }}>About</motion.li>
-          <motion.li whileHover={{ scale: 1.1 }}>
-            <button onClick={() => setShowModal(true)}>Add Project</button>
-          </motion.li>
-          <motion.li whileHover={{ scale: 1.1 }}>Search User</motion.li>
-          <motion.li whileHover={{ scale: 1.1 }}>Log Out</motion.li>
-        </ul>
       </motion.nav>
 
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
           <motion.div
-            className="bg-white p-6 rounded shadow-lg w-full max-w-md"
+            className="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md"
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.3 }}
           >
-            <h2 className="text-xl font-bold mb-4">Add New Project</h2>
+            <h2 className="text-2xl font-bold mb-6 text-gray-800">Add New Project</h2>
             <input
               type="text"
               placeholder="Project Name"
               value={projectName}
               onChange={(e) => setProjectName(e.target.value)}
-              className="border p-2 w-full mb-4"
+              className="border border-gray-300 p-3 w-full mb-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             <input
               type="text"
               placeholder="Figma URL"
               value={figmaUrl}
               onChange={(e) => setFigmaUrl(e.target.value)}
-              className="border p-2 w-full mb-4"
+              className="border border-gray-300 p-3 w-full mb-6 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button
-              onClick={handleAddProject}
-              className="bg-green-500 text-white py-2 px-4 rounded mr-2"
-            >
-              Add Project
-            </button>
-            <button
-              onClick={() => setShowModal(false)}
-              className="bg-red-500 text-white py-2 px-4 rounded"
-            >
-              Cancel
-            </button>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={() => setShowModal(false)}
+                className="bg-gray-300 text-gray-800 py-2 px-6 rounded-md hover:bg-gray-400 transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddProject}
+                className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition-colors"
+              >
+                Add Project
+              </button>
+            </div>
           </motion.div>
         </div>
       )}
 
       {/* Projects */}
-      <motion.div className="flex flex-col items-center justify-center mt-10"
-    
-        variants={navVariants}
-      initial="hidden"
-      animate="visible"
-      
-      
-      >
-        <h2 className="text-4xl font-bold">Projects</h2>
-      </motion.div>
-      <motion.div
-        className="mt-20 mx-10 justify-items-center grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
-        variants={staggerContainer}
-        initial="hidden"
-        animate="visible"
-      >
-        {profile.projects && profile.projects.length > 0 ? (
-          profile.projects.map((project) => (
-            <motion.div
-              key={project.id}
-              className="border p-10 w-3/4   flex flex-col items-center gap-3  rounded shadow bg-gray-100 hover:shadow-lg transition"
-              variants={cardVariants}
-              whileHover={{ scale: 1.05 }}
-            >
-              <h4 className="font-bold">{project.name}</h4>
-              <div className="flex space-x-4 mt-2">
-                <a
-                  href={project.figma_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-blue-500 text-white py-1 px-3 rounded"
-                >
-                  View in Figma
-                </a>
-                <a
-                  href={project.image_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-green-500 text-white py-1 px-3 rounded"
-                >
-                  View Here
-                </a>
-              </div>
-            </motion.div>
-          ))
-        ) : (
-          <p className="mt-4">No projects available</p>
-        )}
-      </motion.div>
+      <div className="container mx-auto px-4 py-10">
+        <motion.div className="text-center mb-12"
+          variants={navVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <h2 className="text-4xl font-bold text-gray-800">Projects</h2>
+          <p className="text-gray-600 mt-2">Your creative journey starts here</p>
+        </motion.div>
+        <motion.div
+          className="grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+          variants={staggerContainer}
+          initial="hidden"
+          animate="visible"
+        >
+          {profile.projects && profile.projects.length > 0 ? (
+            profile.projects.map((project) => (
+              <motion.div
+                key={project.id}
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
+                variants={cardVariants}
+                whileHover={{ y: -5 }}
+              >
+                <div className="p-6">
+                  <h4 className="font-bold text-xl mb-3 text-gray-800">{project.name}</h4>
+                  <div className="flex space-x-4">
+                    <a
+                      href={project.figma_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors flex-1 text-center"
+                    >
+                      View in Figma
+                    </a>
+                    <a
+                      href={project.image_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition-colors flex-1 text-center"
+                    >
+                      View Here
+                    </a>
+                  </div>
+                </div>
+              </motion.div>
+            ))
+          ) : (
+            <p className="col-span-full text-center text-gray-500 text-lg">No projects available</p>
+          )}
+        </motion.div>
+      </div>
     </div>
   );
 }
 
 export default ProfilePage;
+
